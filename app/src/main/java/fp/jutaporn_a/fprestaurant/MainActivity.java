@@ -5,6 +5,9 @@ import android.os.StrictMode;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
+import android.widget.EditText;
+import android.widget.Toast;
 
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpResponse;
@@ -23,12 +26,19 @@ public class MainActivity extends AppCompatActivity {
 
     //Explicit
     private MyManager myManager;
+    private EditText userEditText, passwordEditText;
+    private String userString, passwordString;
+
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        //Bind widget
+        bindWidget();
+
 
         //Request SQLite
         myManager = new MyManager(this);
@@ -45,6 +55,31 @@ public class MainActivity extends AppCompatActivity {
 
 
     }   //Main method
+
+    public void clickLogin(View view) {
+        userString = userEditText.getText().toString().trim();
+        passwordString = passwordEditText.getText().toString().trim();
+        //check space
+        if (userString.equals("") || passwordString.equals("")) {
+            //Have space
+            myAlert("มีช่องว่าง");
+            //No space
+
+        } else {
+
+        }
+
+    }   //clickLogin
+
+    private void myAlert(String strMessage) {
+        Toast.makeText(MainActivity.this,strMessage, Toast.LENGTH_SHORT).show();
+
+    }
+
+    private void bindWidget() {
+        userEditText = (EditText) findViewById(R.id.editText);
+        passwordEditText = (EditText) findViewById(R.id.editText2);
+    }
 
     private void synJSONtoSQLite() {
 

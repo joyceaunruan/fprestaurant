@@ -17,5 +17,13 @@ public class MainActivity extends AppCompatActivity {
 
         //Request SQLite
         myManager = new MyManager(this);
+
+        //Test Add Value
+        testAddValue();
     }   //Main method
+
+    private void testAddValue() {
+        myManager.addValue(1,"user","pass","name");
+        myManager.addValue(2,"food","price","source");
+    }
 }   //Main class

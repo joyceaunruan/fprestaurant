@@ -2,6 +2,7 @@ package fp.jutaporn_a.fprestaurant;
 
 import android.content.ContentValues;
 import android.content.Context;
+import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 
 /**
@@ -34,6 +35,35 @@ public class MyManager {
 
 
     }   //Constructor
+
+    public String[] searchUser(String strUser) {
+
+        try {
+
+            String[] resultStrings = null;
+            Cursor cursor = readSqLiteDatabase.query(user_table,
+                    new String[]{column_id,column_User,column_Password,column_Name},
+                    column_User + "=?",
+                    new String[] {String.valueOf(strUser)},
+                    null,null,null,null);
+            if (cursor != null) {
+                if (cursor.moveToFirst()) {
+                    resultStrings = new String[cursor.getColumnCount()];
+                    for (int i = 0; i < 4; i++) {
+                        resultStrings[i] = cursor.getString(i);
+                    } // for
+                }
+
+            } //if
+
+            cursor.close();
+            return resultStrings;
+
+        } catch (Exception e) {
+            return null;
+        }
+        //return new String[0];
+    }
 
     public long addValue(int intTABLE,
                          String strColumn2,

@@ -1,5 +1,6 @@
 package fp.jutaporn_a.fprestaurant;
 
+import android.content.Intent;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.StrictMode;
 import android.support.v7.app.AppCompatActivity;
@@ -76,6 +77,20 @@ public class MainActivity extends AppCompatActivity {
 
         try {
             String[] myResultStrings = myManager.searchUser(userString);
+
+            //check password
+            if (passwordString.equals(myResultStrings[2])) {
+                //password True
+                Intent intent = new Intent(MainActivity.this,OrderActivity.class);
+                intent.putExtra("Officer", myResultStrings[3]);
+                startActivity(intent);
+                finish();
+            } else {
+                //Password False
+                myAlert("Password ผิด");
+
+            }
+
             myAlert("ยินดีต้อนรับ" + myResultStrings[3]);
 
         } catch (Exception e) {
